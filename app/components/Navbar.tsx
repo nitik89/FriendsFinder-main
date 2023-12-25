@@ -1,13 +1,25 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { LiaLanguageSolid } from "react-icons/lia";
 import { signIn, useSession } from 'next-auth/react';
 
+
 const Navbar = () => {
   const { data: session } = useSession();
-  console.log('data--',session);
+  const router=useRouter();
+
+  useEffect(() => {
+    // If there's a session, redirect to the home page
+    if (session) {
+      router.push('/home');
+    }
+  }, [session, router]);
   const handleLogin = async () => {
-    await signIn('google');
+    const response=await signIn('google');
+    if(response?.ok){
+      router.push('/home');
+    }
   };
   
   return (
