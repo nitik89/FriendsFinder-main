@@ -1,10 +1,11 @@
 // models/message.ts
 import { Schema, model, Document, Types } from 'mongoose';
-import { UserModel } from './user';
+import { User } from './user';
+
 
 export interface Message extends Document {
-  sender: Types.ObjectId | typeof UserModel;
-  receiver: Types.ObjectId | typeof UserModel;
+  sender: Types.ObjectId | typeof User;
+  receiver: Types.ObjectId | typeof User;
   content: string;
   timestamp: Date;
 }

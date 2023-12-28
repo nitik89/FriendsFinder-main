@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
@@ -17,6 +18,9 @@ const LeftBar = () => {
       <div className="group cursor-pointer p-3 transition duration-300 transform hover:scale-105 rounded-md flex flex-col justify-center items-center">
         <IoIosHand size={24} className="text-white" />
         <p className="text-sm text-white mt-2">Activity</p>
+      </div>
+      <div className="group cursor-pointer p-3 transition duration-300 transform hover:scale-105 rounded-md flex flex-col justify-center items-center">
+       <button onClick={()=>signOut()}>Logout</button>
       </div>
     </div>
   );

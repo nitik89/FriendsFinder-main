@@ -11,4 +11,4 @@ export const interestsSchema = new Schema<Interest>({
   description: { type: String },
 });
 
-export const InterestModel = model<Interest>('Interest', interestsSchema);
+export const Interest= model<Interest>('Interest', interestsSchema);
