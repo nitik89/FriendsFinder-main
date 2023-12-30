@@ -1,7 +1,7 @@
 // models/interests.ts
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, model, Document } from "mongoose";
 
-export interface Interest extends Document{
+export interface Interest extends Document {
   name: string;
   description?: string;
 }
@@ -11,4 +11,5 @@ export const interestsSchema = new Schema<Interest>({
   description: { type: String },
 });
 
-export const Interest= model<Interest>('Interest', interestsSchema);
+export const Interests =
+  mongoose.models.Interests || mongoose.model("Interests", interestsSchema);

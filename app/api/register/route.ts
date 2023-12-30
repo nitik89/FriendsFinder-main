@@ -1,7 +1,7 @@
+import { Interests } from "@/models/interests";
 import { User } from "@/models/user";
 import { connect } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
-
 
 interface UserPayload {
   name: string;
@@ -9,29 +9,41 @@ interface UserPayload {
   password: string;
   avtar?: string;
 }
+interface CustomError {
+  message: string;
+}
+interface InterestUser {
+  name: string;
+  description: string;
+}
 
-connect();
-export async function PUT(request: NextRequest) {
+export async function PUT(request: NextRequest, response: NextResponse) {
+  connect();
   try {
-    const body: UserPayload = await request.json();
-    console.log('body',body);
-    const {email}=body;
-    console.log(email);
-    try {
-      // const result = await User.findOneAndUpdate(
-      //   { email: email },
-      //   { $set: { /* Update fields here */ } },
-      //   { returnDocument: 'after' } // To return the updated document
-      // );
-      // console.log('result',result);
-      return NextResponse.json({message:"user added"},{status:201});
-      
-        
-    } catch (error) {
-      return NextResponse.json({ error }, { status: 500 });
+    const body = await request.json();
+    const { email, interests } = body;
+    if (!email) {
+      throw new Error("Could not find email");
     }
-  } catch (error) {
-    console.log(error);
-    return NextResponse.json({error:"refe"},{status:500});
+
+    const anotherSchemaDocs = await Interests.find({ _id: { $in: interests } });
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+    const updatedUser = await User.updateOne(
+      { email },
+      { $push: { interests: anotherSchemaDocs } },
+      { new: true }
+    );
+
+    return NextResponse.json(updatedUser, { status: 201 });
+  } catch (err) {
+    const customError: CustomError = {
+      message: "Internal Server Error",
+    };
+    return NextResponse.json({ message: customError }, { status: 500 });
   }
 }
