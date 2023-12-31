@@ -10,15 +10,15 @@ const Navbar = () => {
   console.log('session--',session);
   const router=useRouter();
 
-  // useEffect(() => {
-  //   // If there's a session, redirect to the home page
-  //   if(session&&!session.contains_full_details){
-  //     router.push('/registeration');
-  //   }
-  //  else if (session) {
-  //     router.push('/home');
-  //   }
-  // }, [session, router]);
+  useEffect(() => {
+    // If there's a session, redirect to the home page
+    if(session&&!session.contains_full_details){
+      router.push('/registeration');
+    }
+   else if (session) {
+      router.push('/home');
+    }
+  }, [session, router]);
   const handleLogin = async () => {
    
     const response=await signIn('google');

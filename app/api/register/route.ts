@@ -21,29 +21,31 @@ export async function PUT(request: NextRequest, response: NextResponse) {
   connect();
   try {
     const body = await request.json();
-    const { email, interests } = body;
-    if (!email) {
-      throw new Error("Could not find email");
+    const { email,gender,interests,name } = body;
+    console.log(body);
+    if (!email||!gender||!name) {
+      throw new Error("missing or invalid details");
     }
-
-    const anotherSchemaDocs = await Interests.find({ _id: { $in: interests } });
-
+    
     const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-    const updatedUser = await User.updateOne(
+    let updatedUser;
+    if(interests){
+      const anotherSchemaDocs = await Interests.find({ _id: { $in: interests } });
+     updatedUser = await User.updateOne(
       { email },
       { $push: { interests: anotherSchemaDocs } },
       { new: true }
     );
+    }
+    updatedUser=await User.updateOne({email},{$set:{name,gender}});
 
     return NextResponse.json(updatedUser, { status: 201 });
   } catch (err) {
-    const customError: CustomError = {
-      message: "Internal Server Error",
-    };
-    return NextResponse.json({ message: customError }, { status: 500 });
+    console.log(err);
+    return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }

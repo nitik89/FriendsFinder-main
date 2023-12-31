@@ -7,14 +7,14 @@ export default function Home() {
   const isLoggedIn = false;
   return (
     <div className="flex flex-col h-screen">
-      <SessionProvider>
+    
       {!isLoggedIn && (
         <>
           <Navbar />
           <Homepage />
         </>
       )}
-      </SessionProvider>
+     
     </div>
   );
 }
