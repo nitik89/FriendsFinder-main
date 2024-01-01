@@ -21,9 +21,8 @@ export async function PUT(request: NextRequest, response: NextResponse) {
   connect();
   try {
     const body = await request.json();
-    const { email, gender, interests, name } = body;
-    console.log(body);
-    if (!email || !gender || !name) {
+    const { email,gender,interests,name } = body;
+    if (!email||!gender||!name) {
       throw new Error("missing or invalid details");
     }
 

@@ -35,9 +35,7 @@ const RegisterationForm =() => {
   } = useForm<FormValues>({ resolver });
   const router=useRouter();
   const {data:session}=useSession();
-  console.log('session',session);
   const onSubmit: SubmitHandler<FormValues> =async (data) =>{
-    console.log("hello");
     try{
 
       const formData={...data,email:session?.user.email};

@@ -1,41 +1,39 @@
-import Image from "next/image";
-import React from "react";
-import {
-  IoIosCheckmarkCircleOutline,
-  IoIosCloseCircleOutline,
-} from "react-icons/io";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+
+import React, { useEffect, useState } from "react";
+
+import PersonDetails from "./PersonDetails";
+
+
 
 const Friends = () => {
+
+  const [usersData,setUsersData]=useState();
+  const [index,setCurrIdx]=useState(0);
+  const {data:session}=useSession();
+  console.log(session);
+  useEffect( ()=>{
+   
+    const fetchFriends=async ()=>{
+      
+      try{
+        console.log(session);
+        const email=session?.user.email;
+        console.log('email',email);
+      const data=await axios.get(`/api/people?email=${email}`);
+      setUsersData(data.data);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    fetchFriends();
+  },[session])  
   return (
-    <div className="flex-1 flex flex-col items-center p-4 justify-center">
-      <div className="relative">
-        <Image
-          className="rounded-xl"
-          src="/test.webp"
-          alt="test"
-          width={400}
-          height={600}
-        />
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-white p-4">
-          <h3 className="text-xl font-bold mb-2">Rahul Sharma</h3>
-          <div className="text-sm text-gray-300 mb-2">
-            Preferences - Gym, Gym, Gym
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-row justify-center space-x-4">
-        <IoIosCheckmarkCircleOutline
-          size={40}
-          color="#22c55e"
-          className="cursor-pointer hover:opacity-70"
-        />
-        <IoIosCloseCircleOutline
-          size={40}
-          color="#dc2626"
-          className="cursor-pointer hover:opacity-70"
-        />
-      </div>
-    </div>
+   <>
+   <PersonDetails />
+   </>
   );
 };
 

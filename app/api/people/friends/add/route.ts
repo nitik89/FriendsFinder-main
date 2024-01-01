@@ -11,9 +11,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   connect();
   try {
     const body = await request.json();
-    console.log(body);
     const { email, id } = body;
-    console.log(email, id);
     if (!email || !id) {
       throw new Error("Could not find email or id");
     }

@@ -15,7 +15,7 @@ const page = () => {
       <div className="rounded-md shadow-md flex w-full ">
         <div className="flex-none w-1/3 border-2 border-violet-700 shadow-md items-center justify-center">
           <LeftBar />
-          <FriendsLeft />
+      <FriendsLeft />
         </div>
         <Friends />
       </div>

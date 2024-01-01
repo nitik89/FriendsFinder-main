@@ -10,11 +10,11 @@ export async function GET(request: NextRequest, response: NextResponse) {
   connect();
   try {
     const email = request.nextUrl.searchParams.get("email") || null;
-
+    console.log('that is my email',email);
     const user = await User.findOne({ email });
 
     if (!user) {
-      return NextResponse.json({ message: "No user found " }, { status: 404 });
+      return NextResponse.json({ message: "No user found " }, { status: 422 });
     }
 
     // Find other users with matching interests
