@@ -15,7 +15,7 @@ const Profile = () => {
       </div>
       <div className="text-center">
         <p className="text-xl font-semibold">John Doe</p>
-        <p className="text-gray-500">Age: 30</p>
+        <p className="text-gray-500">Age: 37</p>
       </div>
     </div>
   );

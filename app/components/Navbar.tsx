@@ -1,31 +1,27 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LiaLanguageSolid } from "react-icons/lia";
-import { signIn, useSession } from 'next-auth/react';
-
+import { signIn, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  console.log('session--',session);
-  const router=useRouter();
+  console.log("session--", session);
+  const router = useRouter();
 
   useEffect(() => {
     // If there's a session, redirect to the home page
-    if(session&&!session.contains_full_details){
-      router.push('/registeration');
-    }
-   else if (session) {
-      router.push('/home');
+    if (session && !session.contains_full_details) {
+      router.push("/registeration");
+    } else if (session) {
+      router.push("/home");
     }
   }, [session, router]);
   const handleLogin = async () => {
-   
-    const response=await signIn('google');
-    
-    
+    console.log("Hey");
+    const response = await signIn("google");
   };
-  
+
   return (
     <div className="shadow-md p-4">
       <div className="container flex flex-row justify-between items-center h-16">
@@ -53,7 +49,10 @@ const Navbar = () => {
               Language
             </div>
           </div>
-          <button className="bg-violet-700 text-white p-2 px-4 rounded-full w-32 border border-white cursor-pointer" onClick={handleLogin}>
+          <button
+            className="bg-violet-700 text-white p-2 px-4 rounded-full w-32 border border-white cursor-pointer"
+            onClick={handleLogin}
+          >
             Login
           </button>
         </div>

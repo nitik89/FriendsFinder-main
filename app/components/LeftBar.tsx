@@ -19,9 +19,6 @@ const LeftBar = () => {
         <IoIosHand size={24} className="text-white" />
         <p className="text-sm text-white mt-2">Activity</p>
       </div>
-      <div className="group cursor-pointer p-3 transition duration-300 transform hover:scale-105 rounded-md flex flex-col justify-center items-center">
-       <button onClick={()=>signOut()}>Logout</button>
-      </div>
     </div>
   );
 };
