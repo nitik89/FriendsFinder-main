@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const userSchema = new Schema({
+const usersSchema = new Schema({
   name: {
     required: [true, "Name field is required."],
     minLength: [2, "Name must be 2 character long."],
@@ -20,6 +20,8 @@ const userSchema = new Schema({
   gender: { type: String, enum: ["Male", "Female", "Other"] },
   contains_full_details: { type: Boolean, default: false },
   interests: [{ type: Schema.Types.ObjectId, ref: "Interests" }],
+  requestList: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-export const User = mongoose.models.User || mongoose.model("User", userSchema);
+export const Users =
+  mongoose.models.Users || mongoose.model("Users", usersSchema);

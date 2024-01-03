@@ -1,7 +1,6 @@
 // models/message.ts
-import { Schema, model, Document, Types } from 'mongoose';
-import { User } from './user';
-
+import { Schema, model, Document, Types } from "mongoose";
+import { User } from "./users";
 
 export interface Message extends Document {
   sender: Types.ObjectId | typeof User;
@@ -11,10 +10,10 @@ export interface Message extends Document {
 }
 
 const messageSchema = new Schema<Message>({
-  sender: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  receiver: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  sender: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  receiver: { type: Schema.Types.ObjectId, ref: "User", required: true },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
-export const MessageModel = model<Message>('Message', messageSchema);
+export const MessageModel = model<Message>("Message", messageSchema);

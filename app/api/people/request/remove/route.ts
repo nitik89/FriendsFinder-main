@@ -11,8 +11,8 @@ export async function PUT(request: NextRequest, response: NextResponse) {
   connect();
   try {
     const body = await request.json();
-    console.log(body);
     const { email, id } = body;
+    console.log("body", body);
     if (!email || !id) {
       throw new Error("Could not find email or id");
     }
@@ -25,30 +25,20 @@ export async function PUT(request: NextRequest, response: NextResponse) {
       throw new Error("Could not find the user B");
     }
 
-    if (
-      userA.friends.includes(userB._id) ||
-      userB.friends.includes(userA._id)
-    ) {
-      throw new Error("Already a friend");
+    if (!userA?.requestList?.includes(userB._id)) {
+      throw new Error("Request does not exist");
     }
-
-    const updatedUser = await Users.findByIdAndUpdate(
-      id,
-      { $pull: { requestList: userA._id }, $push: { friends: userA._id } },
-      { new: true } // To return the updated document
-    );
-    const updatedUserMe = await Users.findOneAndUpdate(
+    const updatedUser = await Users.findOneAndUpdate(
       { email },
-      { $push: { friends: userB._id } },
+      { $pull: { requestList: id } },
       { new: true } // To return the updated document
     );
 
     return NextResponse.json(
-      { message: "User added to friendlist", updatedUserMe },
+      { message: "Request sent successfully", updatedUser },
       { status: 201 }
     );
   } catch (err) {
-    console.log(err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }

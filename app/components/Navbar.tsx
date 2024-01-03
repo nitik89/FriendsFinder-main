@@ -6,7 +6,7 @@ import { signIn, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const router=useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     // If there's a session, redirect to the home page
