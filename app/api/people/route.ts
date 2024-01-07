@@ -14,7 +14,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const user = await Users.findOne({ email });
 
     if (!user) {
-      return NextResponse.json({ message: "No usesr found " }, { status: 422 });
+      return NextResponse.json({ message: "No user found " }, { status: 422 });
     }
 
     // Find other users with matching interests

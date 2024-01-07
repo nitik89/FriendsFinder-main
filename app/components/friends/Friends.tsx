@@ -20,7 +20,7 @@ const Friends = () => {
     const fetchFriends = async () => {
       try {
         console.log(session);
-        const email = session?.user.email;
+        const email = session?.user?.email;
         console.log("email", email);
         const data = await axios.get(`/api/people?email=${email}`);
         console.log(data);
