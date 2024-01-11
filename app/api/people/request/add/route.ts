@@ -1,4 +1,3 @@
-import { Interests } from "@/models/interests";
 import { Users } from "@/models/users";
 import { connect } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";

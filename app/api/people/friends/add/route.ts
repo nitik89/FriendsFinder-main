@@ -6,12 +6,12 @@ import { NextRequest, NextResponse } from "next/server";
 interface CustomError {
   message: string;
 }
-//request approval
+//request approval -- this is the request
 export async function PUT(request: NextRequest, response: NextResponse) {
   connect();
   try {
     const body = await request.json();
-    console.log(body);
+    console.log("route for the friends add", body);
     const { email, id } = body;
     if (!email || !id) {
       throw new Error("Could not find email or id");
@@ -24,7 +24,8 @@ export async function PUT(request: NextRequest, response: NextResponse) {
     if (!userB) {
       throw new Error("Could not find the user B");
     }
-
+    console.log("userA", userA);
+    console.log("userB", userB);
     if (
       userA.friends.includes(userB._id) ||
       userB.friends.includes(userA._id)
@@ -39,7 +40,7 @@ export async function PUT(request: NextRequest, response: NextResponse) {
     );
     const updatedUserMe = await Users.findOneAndUpdate(
       { email },
-      { $push: { friends: userB._id } },
+      { $push: { friends: userB._id }, $pull: { requestList: userB._id } },
       { new: true } // To return the updated document
     );
 

@@ -27,7 +27,7 @@ const FriendsLeft = () => {
   return (
     <div className="flex flex-col ">
       {requestList?.map((req) => (
-        <RequestList />
+        <RequestList userData={req} />
       ))}
     </div>
   );
