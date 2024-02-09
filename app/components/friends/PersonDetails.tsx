@@ -8,6 +8,7 @@ import {
 interface User {
   _id: string;
   email: string;
+  name: string;
   contains_full_details: Boolean;
 }
 interface UserListProps {
@@ -24,7 +25,13 @@ const PersonDetails: React.FC<UserListProps> = ({ usersData }) => {
     }
   };
 
-  return (
+  return index == usersData.length ? (
+    <div className="flex-1 flex flex-col items-center p-4 justify-center">
+      <div className="flex items-center justify-center align-center h-full">
+        <p className="text-lg text-gray-600">End of the user list here!!</p>
+      </div>
+    </div>
+  ) : (
     <div className="flex-1 flex flex-col items-center p-4 justify-center">
       <div className="relative">
         <Image

@@ -13,7 +13,7 @@ const usersSchema = new Schema({
     unique: true,
     trim: true,
   },
-
+  dob: { type: Date },
   friends: [{ type: Schema.Types.ObjectId, ref: "Users" }],
   profilePic: { type: String, default: "default-profile-pic-url.jpg" },
   blockedUsers: [{ type: Schema.Types.ObjectId, ref: "Users" }],
